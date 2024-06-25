@@ -1,0 +1,13 @@
+.fixed-width-btn {
+    width: 150px; /* фіксована ширина кнопки */
+}
+.header-section {
+    background-color: #003a75; /* світлий фон для відокремлення */
+    padding: 60px 0;
+    text-align: center;
+}
+@media (max-width: 768px)  {
+    .img-fluid {
+        max-width: 200px;
+    }
+}
