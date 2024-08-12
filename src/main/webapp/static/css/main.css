@@ -1,8 +1,8 @@
 .fixed-width-btn {
-    width: 150px; /* фіксована ширина кнопки */
+    width: 150px;
 }
 .header-section {
-    background-color: #003a75; /* світлий фон для відокремлення */
+    background-color: #003a75;
     padding: 60px 0;
     text-align: center;
 }
