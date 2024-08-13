@@ -18,7 +18,7 @@
                 <div class="card-body">
                     <div class="text-center mb-2">
                         <i class="far fa-file-alt fa-4x mb-3 text-primary"></i>
-                        <p><strong>Question ${currentQuestion + 1}</strong></p>
+                        <p><strong>Question ${currentQuestionIndex + 1}</strong></p>
                     </div>
 
                     <p> ${question.getName()}</p>
@@ -35,17 +35,17 @@
                             <label class="form-check-label" for="radio2"></label>
                         </div>
                         <input id="submitBtn" class="btn btn-primary fixed-width-btn" type="submit" value="Далі" disabled>
-                        <input type="hidden" name="currentQuestion" value="${currentQuestion}"/>
+                        <input type="hidden" name="currentQuestionIndex" value="${currentQuestionIndex}"/>
                     </form>
                     <%
                         BaseQuest quest = (BaseQuest) session.getAttribute("quest");
-                        int currentQuestion = (int) request.getAttribute("currentQuestion");
+                        int currentQuestionIndex = (int) request.getAttribute("currentQuestionIndex");
                         int questionsCount = quest.getQuestions().size();
                     %>
                     <div class="mt-5 mb-3">
                         <div class="progress">
-                            <div id="progress-bar" class="progress-bar" style="width: <%=100 / questionsCount * currentQuestion%>%">
-                                <%=currentQuestion + 1%> of <%=questionsCount%>
+                            <div id="progress-bar" class="progress-bar" style="width: <%=100 / questionsCount * currentQuestionIndex%>%">
+                                <%=currentQuestionIndex + 1%> of <%=questionsCount%>
                             </div>
                         </div>
                     </div>
@@ -58,7 +58,7 @@
 <script>
     window.onload = function () {
         const progressBar = document.getElementsByClassName('progress-bar')[0];
-        const targetWidth = <%=100 / questionsCount * (currentQuestion + 1)%>;
+        const targetWidth = <%=100 / questionsCount * (currentQuestionIndex + 1)%>;
 
         setTimeout(() => {
             progressBar.style.width = targetWidth + '%';

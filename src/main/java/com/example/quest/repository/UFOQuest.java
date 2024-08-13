@@ -1,9 +1,6 @@
 package com.example.quest.repository;
 
 import com.example.quest.entity.Question;
-import lombok.Data;
-
-import java.util.ArrayList;
 import java.util.List;
 
 

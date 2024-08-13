@@ -2,8 +2,6 @@ package com.example.quest.repository;
 
 import com.example.quest.entity.Question;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class EmptyQuest extends BaseQuest {

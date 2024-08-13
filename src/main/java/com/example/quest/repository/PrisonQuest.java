@@ -2,8 +2,6 @@ package com.example.quest.repository;
 
 import com.example.quest.entity.Question;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class PrisonQuest extends BaseQuest {

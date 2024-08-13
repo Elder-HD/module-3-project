@@ -4,6 +4,8 @@ import com.example.quest.repository.BaseQuest;
 import com.example.quest.repository.EmptyQuest;
 import com.example.quest.repository.PrisonQuest;
 import com.example.quest.repository.UFOQuest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,26 +19,34 @@ import static com.example.quest.service.QuestService.*;
 
 @WebServlet(value ="/quests/*")
 public class QuestServlet extends HttpServlet {
+    private static final Logger LOGGER = LoggerFactory.getLogger(QuestServlet.class);
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession(true);
-        BaseQuest quest = null;
+        LOGGER.debug("Path = {}",req.getRequestURI());
 
-        switch (req.getPathInfo()) {
-            case "/UFOQuest" -> quest = new UFOQuest();
-            case "/PrisonQuest" -> quest = new PrisonQuest();
-            case "/EmptyQuest" -> quest = new EmptyQuest();
-            default -> getServletContext().getRequestDispatcher("/quest_list.jsp").forward(req,resp);
+        BaseQuest quest = switch (req.getPathInfo()) {
+            case "/UFOQuest" ->  new UFOQuest();
+            case "/PrisonQuest" ->  new PrisonQuest();
+            case "/EmptyQuest" ->  new EmptyQuest();
+            default -> null;
+        };
+
+        try {
+            quest.initQuest();
+            LOGGER.info("Quest [{}] initialized", quest.getClass().getSimpleName());
+        } catch (Exception e) {
+            LOGGER.error("Error during Quest initialization. link={}, quest={}", req.getRequestURI(), quest);
+            throw new RuntimeException("Quest isn't initialized");
         }
-
-        quest.initQuest();
         session.setAttribute("quest",quest);
 
-        int currentQuestion = quest.getCurrentQuestion();
-        Question question = quest.getQuestions().get(currentQuestion);
+        int currentQuestionIndex = 0;
+        Question question = quest.getQuestions().get(currentQuestionIndex);
 
         req.setAttribute("question",question);
-        req.setAttribute("currentQuestion",currentQuestion);
+        req.setAttribute("currentQuestionIndex",currentQuestionIndex);
 
         getServletContext().getRequestDispatcher("/quest_page.jsp").forward(req,resp);
     }
@@ -46,24 +56,27 @@ public class QuestServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession(true);
         int optradio = Integer.parseInt(req.getParameter("optradio"));
-        int currentQuestion = Integer.parseInt(req.getParameter("currentQuestion"));
+        int currentQuestionIndex = Integer.parseInt(req.getParameter("currentQuestionIndex"));
         BaseQuest quest = (BaseQuest) session.getAttribute("quest");
-        Question question = quest.getQuestions().get(currentQuestion);
+        Question question = quest.getQuestions().get(currentQuestionIndex);
+        LOGGER.debug("Question #{}: User answer={}, right answer={}", currentQuestionIndex, optradio, question.getCorrectOption());
 
-        currentQuestion++;
+        currentQuestionIndex++;
 
         boolean isWrongAnswer = checkIfWrongAnswer(optradio, question);
-        boolean isLastQuestion = checkIfLastQuestion(currentQuestion, quest);
+        boolean isLastQuestion = checkIfLastQuestion(currentQuestionIndex, quest);
 
 
         if (isWrongAnswer || isLastQuestion) {
             req.setAttribute("isWrongAnswer", isWrongAnswer);
             req.setAttribute("question",question);
+            LOGGER.debug("Redirect to result page: isWrongAnswer={}, isLastQuestion={}", isWrongAnswer, isLastQuestion);
             getServletContext().getRequestDispatcher("/result.jsp").forward(req,resp);
+            return;
         }
 
-        req.setAttribute("currentQuestion", currentQuestion);
-        req.setAttribute("question", quest.getQuestions().get(currentQuestion));
+        req.setAttribute("question", quest.getQuestions().get(currentQuestionIndex));
+        req.setAttribute("currentQuestionIndex", currentQuestionIndex);
 
         getServletContext().getRequestDispatcher("/quest_page.jsp").forward(req,resp);
 

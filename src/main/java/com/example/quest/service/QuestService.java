@@ -2,7 +2,6 @@ package com.example.quest.service;
 
 import com.example.quest.entity.Question;
 import com.example.quest.repository.BaseQuest;
-import com.example.quest.repository.Quest;
 
 public class QuestService {
 
@@ -10,7 +9,8 @@ public class QuestService {
         return userAnswerQuestion != question.getCorrectOption();
     }
 
-    public static boolean checkIfLastQuestion(int currentQuestion, BaseQuest quest) {
-        return currentQuestion >= quest.getQuestions().size();
+    public static boolean checkIfLastQuestion(int currentQuestionIndex, BaseQuest quest) {
+        return currentQuestionIndex >= quest.getQuestions().size();
     }
 }
+
