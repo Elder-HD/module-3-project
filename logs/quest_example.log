@@ -1,0 +1,7 @@
+2024-08-13 18:10:19 INFO  com.example.quest.controller.QuestListServlet - Generating quest list
+2024-08-13 18:10:31 DEBUG com.example.quest.controller.QuestServlet - Path = /quests/UFOQuest
+2024-08-13 18:10:31 INFO  com.example.quest.controller.QuestServlet - Quest [UFOQuest] initialized
+2024-08-13 18:10:32 DEBUG com.example.quest.controller.QuestServlet - Question #0: User answer=0, right answer=0
+2024-08-13 18:10:33 DEBUG com.example.quest.controller.QuestServlet - Question #1: User answer=0, right answer=0
+2024-08-13 18:10:34 DEBUG com.example.quest.controller.QuestServlet - Question #2: User answer=0, right answer=0
+2024-08-13 18:10:34 DEBUG com.example.quest.controller.QuestServlet - Redirect to result page: isWrongAnswer=false, isLastQuestion=true

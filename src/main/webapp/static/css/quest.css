@@ -1,13 +1,10 @@
 .fixed-width-btn {
-    width: 90px; /* фіксована ширина кнопки */
+    width: 90px;
 }
 .progress {
-    height: 1.5rem; /* Висота прогрес-бару для кращого вигляду */
+    height: 1.5rem;
 }
 .card {
-    max-width: 100%; /* Максимальна ширина картки для мобільних пристроїв */
+    max-width: 100%;
 }
 
-.progress-bar {
-    width: 33%;
-}
