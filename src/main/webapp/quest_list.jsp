@@ -33,7 +33,7 @@
                 <img class="img-fluid w-100 h-100" style="object-fit: cover;" src="/static/img/QUEST.jpg" alt="Quest_image.png">
             </div>
             <h2>QUEST 3</h2>
-            <p>This is a quest description. This quest about bla bla bla bla bla bla. This is a quest description. This quest about bla bla bla bla bla bla</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Facilisis sed odio morbi quis commodo odio aenean. Tellus elementum sagittis vitae et leo duis ut diam quam. Viverra vitae congue eu consequat ac felis donec et. In metus vulputate eu scelerisque felis imperdiet. </p>
             <a class="btn btn-primary" href="/quests/EmptyQuest">Start Quest</a>
         </div>
     </div>
